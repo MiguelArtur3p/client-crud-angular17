@@ -59,7 +59,7 @@ export class CidadeFormComponent implements OnInit, IFormCanDeactivate
         else
         {
             this.id = this._route.snapshot.params['id'];
-            this.operacao = this._route.snapshot.url[1].path;
+            this.operacao = this._route.snapshot.data['operacao'];
         }
     }
 
