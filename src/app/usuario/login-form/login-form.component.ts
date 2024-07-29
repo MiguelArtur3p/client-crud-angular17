@@ -6,7 +6,6 @@ import { UsuarioService } from '../services/usuario.service';
 import { UsuarioLoginRequest } from '../models/usuario-login-request';
 import { ValidarInputsService } from '../../shared/services/validar-inputs.service';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
-import { UsuarioLoginResponse } from '../models/usuario-login-response';
 import { RotasService } from '../../shared/services/rotas.service';
 
 @Component({

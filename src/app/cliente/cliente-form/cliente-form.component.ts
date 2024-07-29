@@ -1,35 +1,24 @@
 import
-{
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    TemplateRef
-} from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+{ Component, ElementRef, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, take } from 'rxjs';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
-import { ClienteService } from '../services/cliente.service';
 import { Cliente } from '../models/Cliente';
 import { Cidade } from '../../cidade/models/Cidade';
 import { IFormCanDeactivate } from '../../guards/iform-candeactivate';
-import { EMPTY, Subscription, take } from 'rxjs';
-import { ValidarInputsService } from '../../shared/services/validar-inputs.service';
 import { CidadeValidatorService } from '../../cidade/services/cidade-validator.service';
-
+import { ClienteService } from '../services/cliente.service';
+import { ValidarInputsService } from '../../shared/services/validar-inputs.service';
 import { ModalService } from '../../shared/services/modal.service';
-import { CidadeListModalComponent } from '../../cidade/modals/cidade-list-modal/cidade-list-modal.component';
 import { AlertModalService } from '../../shared/services/alert-modal.service';
-import { ConfirmacaoModalComponent } from '../../shared/confirmacao-modal/confirmacao-modal.component';
 import { CidadeService } from '../../cidade/services/cidade.service';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { uploadProgresso, filtrarResposta } from '../../shared/services/rxjs-operators';
-
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
-
+import { uploadProgresso, filtrarResposta } from '../../shared/services/rxjs-operators';
+import { CidadeListModalComponent } from '../../cidade/modals/cidade-list-modal/cidade-list-modal.component';
+import { ConfirmacaoModalComponent } from '../../shared/components/confirmacao-modal/confirmacao-modal.component';
 
 @Component({
     selector: 'app-cliente-form',

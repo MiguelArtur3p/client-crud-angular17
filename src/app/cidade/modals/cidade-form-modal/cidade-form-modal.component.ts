@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
+
 import { ModalService } from '../../../shared/services/modal.service';
 import { CidadeListModalComponent } from '../cidade-list-modal/cidade-list-modal.component';
 

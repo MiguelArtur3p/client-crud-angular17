@@ -1,15 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { Cidade } from '../models/Cidade';
 import { CidadeService } from '../services/cidade.service';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { CidadeFormModalComponent } from '../modals/cidade-form-modal/cidade-form-modal.component';
-import { EMPTY, Observable, Subject, Subscription, catchError, takeUntil } from 'rxjs';
-import { ModalService } from '../../shared/services/modal.service';
 import { AlertModalService } from '../../shared/services/alert-modal.service';
-
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
+import { ModalService } from '../../shared/services/modal.service';
+import { CidadeFormModalComponent } from '../modals/cidade-form-modal/cidade-form-modal.component';
 
 @Component({
     selector: 'cidade-list',

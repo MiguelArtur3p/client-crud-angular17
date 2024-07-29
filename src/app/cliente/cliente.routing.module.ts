@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ClienteFormComponent } from './cliente-form/cliente-form.component';
-import { ClienteListComponent } from './cliente-list/cliente-list.component';
 import { permissoessGuard } from '../guards/permissoes.guard';
 import { canDeactivateForm } from '../guards/form-candeactivate';
-import { PaginaNaoEncontradaComponent } from '../pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { ClienteFormComponent } from './cliente-form/cliente-form.component';
+import { ClienteListComponent } from './cliente-list/cliente-list.component';
 
 const routes: Routes = [
     { path: '', component: ClienteListComponent },

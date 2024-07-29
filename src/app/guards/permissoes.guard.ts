@@ -1,10 +1,6 @@
 import { inject } from '@angular/core';
-import
-{
-    ActivatedRouteSnapshot,
-    CanActivateFn,
-    RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, } from '@angular/router';
+
 import { UsuarioService } from '../usuario/services/usuario.service';
 import { RotasService } from '../shared/services/rotas.service';
 

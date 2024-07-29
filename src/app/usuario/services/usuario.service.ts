@@ -1,16 +1,15 @@
 import { EventEmitter, Injectable } from '@angular/core';
-
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { EMPTY, map, take, tap } from 'rxjs';
-import { TratarErrosService } from '../../shared/services/tratar-erros.service';
+import { take, tap } from 'rxjs';
+
 import { UsuarioLoginRequest } from '../models/usuario-login-request';
-import { environment } from '../../environment/environment';
 import { UsuarioLoginResponse } from '../models/usuario-login-response';
 import { ModalService } from '../../shared/services/modal.service';
-import { ConfirmacaoModalComponent } from '../../shared/confirmacao-modal/confirmacao-modal.component';
 import { RotasService } from '../../shared/services/rotas.service';
 import { AlertModalService } from '../../shared/services/alert-modal.service';
+import { environment } from '../../environment/environment';
+import { ConfirmacaoModalComponent } from '../../shared/components/confirmacao-modal/confirmacao-modal.component';
 
 @Injectable({
     providedIn: 'root',

@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 
-import { Cidade } from '../models/Cidade';
 import { IFormCanDeactivate } from '../../guards/iform-candeactivate';
 import { ValidarInputsService } from '../../shared/services/validar-inputs.service';
-import { ModalService } from '../../shared/services/modal.service';
-import { CidadeListModalComponent } from '../modals/cidade-list-modal/cidade-list-modal.component';
-import { AlertModalService } from '../../shared/services/alert-modal.service';
-import { ConfirmacaoModalComponent } from '../../shared/confirmacao-modal/confirmacao-modal.component';
-import { take } from 'rxjs';
-import { CidadeService } from '../services/cidade.service';
-
-
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
-
-
+import { AlertModalService } from '../../shared/services/alert-modal.service';
+import { ModalService } from '../../shared/services/modal.service';
+import { CidadeService } from '../services/cidade.service';
+import { CidadeListModalComponent } from '../modals/cidade-list-modal/cidade-list-modal.component';
+import { ConfirmacaoModalComponent } from '../../shared/components/confirmacao-modal/confirmacao-modal.component';
+import { Cidade } from '../models/Cidade';
 
 @Component({
     selector: 'cidade-form',

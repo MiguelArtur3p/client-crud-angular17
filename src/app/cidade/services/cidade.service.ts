@@ -1,14 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/internal/operators/map';
 
 import { Cidade } from '../models/Cidade';
-import { HttpClient } from '@angular/common/http';
-import { delay } from 'rxjs/internal/operators/delay';
-import { map } from 'rxjs/internal/operators/map';
-import { take, tap } from 'rxjs';
 import { CrudService } from '../../shared/services/CRUD-service';
 import { environment } from '../../environment/environment';
-
-const URL = 'http://localhost:3000/cidades';
 
 @Injectable({
     providedIn: 'root',

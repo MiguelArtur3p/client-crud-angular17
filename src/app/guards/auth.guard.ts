@@ -1,11 +1,6 @@
-import
-    {
-        ActivatedRouteSnapshot,
-        CanActivateFn,
-        Router,
-        RouterStateSnapshot,
-    } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, } from '@angular/router';
 import { inject } from '@angular/core';
+
 import { UsuarioService } from '../usuario/services/usuario.service';
 
 export const authGuard: CanActivateFn = (
