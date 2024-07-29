@@ -4,13 +4,13 @@ import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, } from '@an
 import { UsuarioService } from '../usuario/services/usuario.service';
 import { RotasService } from '../shared/services/rotas.service';
 
-export const permissoessGuard: CanActivateFn = (
+export const permissionsGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
 ) =>
 {
-    let rota = inject(RotasService).obterParametrosRotaAuth(route, state).rota;
-    let operacao = inject(RotasService).obterParametrosRotaAuth(route, state).operacao;
+    let rota = route.data['rota'];
+    let operacao = route.data['operacao'];
 
     return inject(UsuarioService).verificarPermissoesUsuario(rota!, operacao!) ? true : confirm('Você não tem permissão para acessar essa pagina') ? false : false
 };

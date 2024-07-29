@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { permissoessGuard } from '../guards/permissoes.guard';
+import { permissionsGuard } from '../guards/permissions.guard';
 import { canDeactivateForm } from '../guards/form-candeactivate';
 import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 import { ClienteListComponent } from './cliente-list/cliente-list.component';
 
 const routes: Routes = [
     { path: '', component: ClienteListComponent },
-    { path: 'cliente/adicionar', component: ClienteFormComponent, canActivate: [permissoessGuard], canDeactivate: [canDeactivateForm] },
-    { path: 'cliente/detalhes/:id', component: ClienteFormComponent, canActivate: [permissoessGuard] },
-    { path: 'cliente/editar/:id', component: ClienteFormComponent, canActivate: [permissoessGuard], canDeactivate: [canDeactivateForm] },
-    { path: 'cliente/remover/:id', component: ClienteFormComponent, canActivate: [permissoessGuard] },
+    { path: 'adicionar', component: ClienteFormComponent, data: { operacao: 'adicionar', rota: 'cidade' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
+    { path: 'detalhes/:id', component: ClienteFormComponent, data: { operacao: 'detalhes', rota: 'cidade' }, canActivate: [permissionsGuard] },
+    { path: 'editar/:id', component: ClienteFormComponent, data: { operacao: 'editar', rota: 'cidade' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
+    { path: 'remover/:id', component: ClienteFormComponent, data: { operacao: 'remover', rota: 'cidade' }, canActivate: [permissionsGuard] },
 ];
 
 @NgModule({

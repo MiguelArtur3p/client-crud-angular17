@@ -1,33 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-
-import { UsuarioService } from './usuario/services/usuario.service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
+    template: '<router-outlet></router-outlet>',
     styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit, OnDestroy
+export class AppComponent
 {
-    mostrarMenuLateral = false;
     title = 'Cadastro';
-    inscricao!: Subscription;
-    constructor(private _loginService: UsuarioService)
-    {
-
-    }
-
-    ngOnInit() 
-    {
-        this.inscricao = this._loginService.mostrarConteudoEmitter.subscribe(
-            (mostrar: boolean) => (this.mostrarMenuLateral = mostrar)
-        );
-    }
-
-    ngOnDestroy()
-    {
-        this.inscricao.unsubscribe();
-    }
-
 }
