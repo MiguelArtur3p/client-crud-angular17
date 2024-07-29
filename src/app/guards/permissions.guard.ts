@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, } from '@an
 import { UsuarioService } from '../usuario/services/usuario.service';
 import { RotasService } from '../shared/services/rotas.service';
 
-export const permissoessGuard: CanActivateFn = (
+export const permissionsGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
 ) =>

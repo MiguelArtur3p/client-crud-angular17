@@ -16,8 +16,6 @@ import { ConfirmacaoModalComponent } from '../../shared/components/confirmacao-m
 })
 export class UsuarioService 
 {
-    usuarioLogado: boolean = false;
-    mostrarConteudoEmitter = new EventEmitter<boolean>();
     keyLogin: string = "UsuarioLogado";
     constructor(private _router: Router, private _http: HttpClient, private _modalService: ModalService, private _rotaService: RotasService,
         private _rotasService: RotasService, private alertModalService: AlertModalService) { }
@@ -38,7 +36,6 @@ export class UsuarioService
         if ((usuarioResponse[0].email === usuarioRequest.email) && (usuarioResponse[0].senha === usuarioRequest.password))
         {
             this.salvarUsuarioLogadoNoLocalStorage(usuarioResponse[0]);
-            this.mostrarConteudoEmitter.emit(true);
             this._router.navigate(['']);
             this._rotasService.redirecionarAposLogin();
         }
@@ -53,7 +50,6 @@ export class UsuarioService
             this._router.navigate(['/login'])
         else
         {
-            this.mostrarConteudoEmitter.emit(false);
             localStorage.removeItem(this.keyLogin);
             this._router.navigate(['/login'])
         }
@@ -68,15 +64,12 @@ export class UsuarioService
 
     verificarUsuarioLogado(): boolean | UsuarioLoginResponse
     {
-        let logado = localStorage.getItem(this.keyLogin) ? true : false;
-        logado ? this.mostrarConteudoEmitter.emit(true) : this.mostrarConteudoEmitter.emit(false)
-        return logado;
+        return localStorage.getItem(this.keyLogin) ? true : false;
     }
 
     obterUsuarioLocalStorage()
     {
-        let usuarioLoginResponse: UsuarioLoginResponse = JSON.parse(localStorage.getItem(this.keyLogin)!) || false;
-        return usuarioLoginResponse
+        return JSON.parse(localStorage.getItem(this.keyLogin)!) || false;
     }
 
     verificarPermissoesUsuario(rota: string, operacao: string): boolean
