@@ -1,12 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
-import { ClienteService } from '../services/cliente.service';
 import { Cliente } from '../models/Cliente';
-import { EMPTY, Subject, catchError, takeUntil } from 'rxjs';
 import { AlertModalService } from '../../shared/services/alert-modal.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
-
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
     selector: 'app-cliente-list',

@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ModalService } from '../services/modal.service';
 import { Subject } from 'rxjs';
+
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { CidadeListModalComponent } from '../../cidade/modals/cidade-list-modal/cidade-list-modal.component';
+
+import { ModalService } from '../../services/modal.service';
 
 @Component({
     selector: 'app-confirmacao-modal',

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, input } from '@angular/core';
-import { MensagensErrosService } from '../services/mensagens-erros.service';
+import { Component } from '@angular/core';
+
+import { MensagensErrosService } from '../../services/mensagens-erros.service';
 
 @Component({
     selector: 'toasts-error',
@@ -14,6 +15,4 @@ export class ToastsErrorComponent
     {
         this.mensagensDeErros.mensagemDeErro = undefined;
     }
-
-
 }

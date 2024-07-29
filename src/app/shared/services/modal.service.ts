@@ -1,7 +1,9 @@
-import { Component, ComponentRef, Injectable, TemplateRef } from '@angular/core';
+import { Injectable, } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ConfirmacaoModalComponent } from '../confirmacao-modal/confirmacao-modal.component';
-import { Observable, Subject, of, take } from 'rxjs';
+
+import { ConfirmacaoModalComponent } from '../components/confirmacao-modal/confirmacao-modal.component';
 
 @Injectable({
     providedIn: 'root'
