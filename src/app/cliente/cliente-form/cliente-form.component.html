@@ -1,0 +1,123 @@
+<div class="container shadow p-4">
+    <div>
+        <form [formGroup]="clienteForm">
+            <div class="row mb-3">
+                <div class="col-md-1">
+                    <label for="id" class="form-label">Código</label>
+                    <input type="text" id="id" formControlName="id" readonly class="form-control">
+                </div>
+                <div class="col-md-5">
+                    <label for="nomeCliente" class="form-label">Nome</label>
+                    <input type="text" formControlName="nomeCliente" id="nomeCliente" [ngClass]="aplicarCssCamposInvalidos('nomeCliente')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('nomeCliente')" msgErro="Nome obrigatório!"></app-campo-control-invalid>
+                </div>
+                <div class="col-md-3">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="text" formControlName="cpf" id="cpf" [ngClass]="aplicarCssCamposInvalidos('cpf')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('cpf')" msgErro="CPF obrigatório!"></app-campo-control-invalid>
+                </div>
+                <div class="col-md-3">
+                    <label for="dataNascimento" class="form-label text-nowrap">Data de Nascimento</label>
+                    <input type="date" formControlName="dataNascimento" id="dataNascimento" [ngClass]="aplicarCssCamposInvalidos('dataNascimento')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('dataNascimento')" msgErro="Data de Nascimento obrigatório!"></app-campo-control-invalid>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-2">
+                    <label for="codigoCidade" class="form-label text-nowrap">Código da Cidade</label>
+                    <div class="input-group">
+                        <input type="number" id="codigoCidade" #inputCodigoCidade formControlName="codigoCidade" aria-describedby="modalPesquisarCidade" min="1" (input)="obterCidade(inputCodigoCidade.value)" [ngClass]="aplicarCssCamposInvalidos('codigoCidade')" class="form-control">
+                        <button type="button" id="modalPesquisarCidade" class="btn btn-outline-secondary" (click)="abrirModal()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    <app-campo-control-invalid [mostrarErro]="clienteForm.get('codigoCidade')?.hasError('required') && clienteForm.get('codigoCidade')?.touched" msgErro="Código da cidade obrigatório!"></app-campo-control-invalid>
+
+                </div>
+
+                <div class="col-md">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" #inputCidade id="cidade" disabled class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="clienteForm.get('codigoCidade')?.status === 'PENDING'" msgErro="Buscando Cidade!"></app-campo-control-invalid>
+                    <app-campo-control-invalid [mostrarErro]="clienteForm.get('codigoCidade')?.hasError('cidadeNaoEncontrada')" msgErro="Cidade não encontrada!"></app-campo-control-invalid>
+                </div>
+
+                <div class="col-md">
+                    <label for="estado" class="form-label">Estado</label>
+                    <input readonly #inputEstado class="form-control" disabled id="estado">
+
+                </div>
+                <div class="col-md">
+                    <label for="pais" class="form-label">País</label>
+                    <input type="text" formControlName="pais" id="pais" [ngClass]="aplicarCssCamposInvalidos('pais')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('pais')" msgErro="País obrigatório!"></app-campo-control-invalid>
+                </div>
+
+            </div>
+            <div formGroupName="endereco">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="rua" class="form-label">Rua</label>
+                        <input type="text" formControlName="rua" id="rua" [ngClass]="aplicarCssCamposInvalidos('endereco.rua')" class="form-control">
+                        <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('endereco.rua')" msgErro="Rua obrigatório!"></app-campo-control-invalid>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="numeroCasa" class="form-label">N.º</label>
+                        <input type="number" formControlName="numeroCasa" min="0" id="numeroCasa" [ngClass]="aplicarCssCamposInvalidos('endereco.numeroCasa')" class="form-control">
+                        <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('endereco.numeroCasa')" msgErro="N.º obrigatório!"></app-campo-control-invalid>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="bairro" class="form-label">Bairro</label>
+                        <input type="text" formControlName="bairro" id="bairro" [ngClass]="aplicarCssCamposInvalidos('endereco.bairro')" class="form-control">
+                        <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('endereco.bairro')" msgErro="Bairro obrigatório!"></app-campo-control-invalid>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" formControlName="email" id="email" [ngClass]="aplicarCssCamposInvalidos('email')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('email')" msgErro="Email obrigatório!"></app-campo-control-invalid>
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoEmail()" msgErro="Digite um email Valido!"></app-campo-control-invalid>
+                </div>
+
+                <div class="col-md">
+                    <label for="formFile" class="form-label">Documento</label>
+                    <input class="form-control" type="file" id="formFile" (change)="criarArquivo($event)" multiple>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [style.width]="progressoUpload + '%'">
+                            {{ progressoUpload }}%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <label for="numeroCelular" class="form-label">Celular</label>
+                    <input type="text" formControlName="numeroCelular" id="numeroCelular" [ngClass]="aplicarCssCamposInvalidos('numeroCelular')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('numeroCelular')" msgErro="Celular obrigatório!"></app-campo-control-invalid>
+                </div>
+                <div class="col-md containerTelefone z-index">
+                    <div formArrayName="numeroTelefone">
+                        <div *ngFor="let telefone of obterControlTelefones['controls']; let i = index">
+                            <label for="numeroTelefone" class="form-label">Telefone {{ i+1 }}</label>
+                            <div class="input-group input-group-sm">
+                                <button class="btn text-danger" *ngIf="(operacao === 'adicionar' || operacao === 'editar') && i > 0" (click)="removerTelefone(i)">-</button>
+                                <input type="text" [formControlName]="i" id="numeroTelefone" class="form-control">
+                                <!-- <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('numeroTelefone')" msgErro="Telefone obrigatório!"></app-campo-control-invalid> -->
+                                <button class="btn text-success" *ngIf="operacao === 'adicionar' || operacao === 'editar'" (click)="adicionarTelefone()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-primary" *ngIf="operacao==='adicionar' || operacao=='editar'" (click)="salvar()">Salvar</button>
+                <button class="btn btn-danger" *ngIf="operacao=='remover'" (click)="abrirModalDeConfirmacao()">Remover</button>
+                <button class="btn btn-secondary m-2" *ngIf="operacao=='detalhes'" routerLink="/cliente">Voltar</button>
+                <button class="btn btn-secondary m-2" *ngIf="operacao!=='detalhes'" routerLink="/cliente">Cancelar</button>
+            </div>
+        </form>
+    </div>

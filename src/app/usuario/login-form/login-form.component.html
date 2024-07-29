@@ -1,0 +1,22 @@
+<div class="m-5">
+    <toasts-error class="position-fixed bottom-0 end-0"></toasts-error>
+    <form [formGroup]="loginForm" class="mt-4 col-md-6 p-3 shadow border">
+        <h4 class="mb-3 text-center">Faça Login</h4>
+        <div class="row mb-3">
+            <label for="email" class="form-label">Email</label>
+            <div class="col-md">
+                <input type="email" class="form-control" [ngClass]="_validarInputsService.aplicaCssErro(loginForm,'email')" formControlName="email" id="email">
+                <app-campo-control-invalid [mostrarErro]="_validarInputsService.verificarEmailInvalido(loginForm)" msgErro="Digite um email válido!"></app-campo-control-invalid>
+                <app-campo-control-invalid [mostrarErro]="_validarInputsService.verificarRequired(loginForm,'email')" msgErro="Email é obrigatório!"></app-campo-control-invalid>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <div class="col-md">
+                <input type="password" class="form-control" formControlName="password" [ngClass]="_validarInputsService.aplicaCssErro(loginForm,'password')" id="password">
+                <app-campo-control-invalid [mostrarErro]="_validarInputsService.verificarValidTouch(loginForm,'password')" msgErro="Senha é obrigatória!"></app-campo-control-invalid>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="login()">Entrar</button>
+    </form>
+</div>

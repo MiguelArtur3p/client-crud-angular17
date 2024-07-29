@@ -1,0 +1,121 @@
+import { EventEmitter, Injectable } from '@angular/core';
+
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { EMPTY, map, take, tap } from 'rxjs';
+import { TratarErrosService } from '../../shared/services/tratar-erros.service';
+import { UsuarioLoginRequest } from '../models/usuario-login-request';
+import { environment } from '../../environment/environment';
+import { UsuarioLoginResponse } from '../models/usuario-login-response';
+import { ModalService } from '../../shared/services/modal.service';
+import { ConfirmacaoModalComponent } from '../../shared/confirmacao-modal/confirmacao-modal.component';
+import { RotasService } from '../../shared/services/rotas.service';
+import { AlertModalService } from '../../shared/services/alert-modal.service';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class UsuarioService 
+{
+    usuarioLogado: boolean = false;
+    mostrarConteudoEmitter = new EventEmitter<boolean>();
+    keyLogin: string = "UsuarioLogado";
+    constructor(private _router: Router, private _http: HttpClient, private _modalService: ModalService, private _rotaService: RotasService,
+        private _rotasService: RotasService, private alertModalService: AlertModalService) { }
+
+    obterUsuario(usuario: UsuarioLoginRequest) 
+    {
+        return this._http.get<UsuarioLoginResponse[]>(`${environment.API}usuario?q=${usuario.email}`).pipe(tap(console.log), take(1))
+    }
+
+
+    autenticarUsuario(usuarioResponse: UsuarioLoginResponse[], usuarioRequest: UsuarioLoginRequest)
+    {
+        if (usuarioResponse.length === 0)
+        {
+            this.alertModalService.mostrarAlertarDanger('Usuário não encontrado!');
+            return
+        }
+        if ((usuarioResponse[0].email === usuarioRequest.email) && (usuarioResponse[0].senha === usuarioRequest.password))
+        {
+            this.salvarUsuarioLogadoNoLocalStorage(usuarioResponse[0]);
+            this.mostrarConteudoEmitter.emit(true);
+            this._router.navigate(['']);
+            this._rotasService.redirecionarAposLogin();
+        }
+        else
+            this.alertModalService.mostrarAlertarDanger('Usuário ou senha incorretos!')
+    }
+
+
+    deslogar()
+    {
+        if (!this.verificarUsuarioLogado())
+            this._router.navigate(['/login'])
+        else
+        {
+            this.mostrarConteudoEmitter.emit(false);
+            localStorage.removeItem(this.keyLogin);
+            this._router.navigate(['/login'])
+        }
+
+    }
+
+    salvarUsuarioLogadoNoLocalStorage(usuarioLoginResponse: UsuarioLoginResponse)
+    {
+        if (!usuarioLoginResponse) return
+        localStorage.setItem(this.keyLogin, JSON.stringify(usuarioLoginResponse));
+    }
+
+    verificarUsuarioLogado(): boolean | UsuarioLoginResponse
+    {
+        let logado = localStorage.getItem(this.keyLogin) ? true : false;
+        logado ? this.mostrarConteudoEmitter.emit(true) : this.mostrarConteudoEmitter.emit(false)
+        return logado;
+    }
+
+    obterUsuarioLocalStorage()
+    {
+        let usuarioLoginResponse: UsuarioLoginResponse = JSON.parse(localStorage.getItem(this.keyLogin)!) || false;
+        return usuarioLoginResponse
+    }
+
+    verificarPermissoesUsuario(rota: string, operacao: string): boolean
+    {
+        let usuarioLogado: UsuarioLoginResponse = this.obterUsuarioLocalStorage();
+        operacao = this.converterOperacaoParaPermissao(operacao);
+        if (!usuarioLogado)
+        {
+            this._router.navigate([''])
+            return false;
+        }
+        else
+        {
+            let claim = usuarioLogado.claim.find(claim => claim.type.toLowerCase() === rota)
+            if (!claim) return false;
+            return claim.value.toLowerCase().includes(operacao);
+        }
+    }
+
+    verificarTrocarUsuario(rota: string, operacao: string, id?: string)
+    {
+        this._modalService.abrirModalConfirmacao(ConfirmacaoModalComponent, 'Confirmação', 'Você não tem permissão para acessar essa pagina, deseja trocar de Usuário?', { class: 'modal-sm' }).pipe(take(1)).subscribe({
+            next: trocarUsuario =>
+            {
+                if (!trocarUsuario)
+                    this._modalService.fecharModal();
+                else
+                    this._rotaService.redirecionarParaLogin(`/${rota}/${operacao}`, id)
+            }
+        })
+    }
+
+    converterOperacaoParaPermissao(operacao?: string)
+    {
+        if (!operacao)
+            return 'consultar'
+        else if (operacao === 'editar')
+            return 'atualizar'
+        return operacao
+    }
+}

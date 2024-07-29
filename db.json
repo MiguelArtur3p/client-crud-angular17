@@ -1,0 +1,82 @@
+{
+  "clientes": [],
+  "cidades": [
+    {
+      "id": 6,
+      "cidade": "Varginha",
+      "estado": "MG",
+      "ibge": "12412"
+    },
+    {
+      "id": 7,
+      "cidade": "Varginha2",
+      "estado": "MG",
+      "ibge": "12412"
+    },
+    {
+      "id": 11,
+      "cidade": "Três Pontas1",
+      "estado": "SP",
+      "ibge": "214214"
+    },
+    {
+      "id": 12,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 13,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 14,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 15,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 16,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 17,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 18,
+      "cidade": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    }
+  ],
+  "usuario": [
+    {
+      "id": 1,
+      "email": "usuario@hotmail.com",
+      "senha": "123456",
+        "claim":[
+            {
+                "type":"cliente",
+                "value":"adicionar,remover,editar,excluir"
+            },
+            {
+                "type":"cidade",
+                "value":"adicionar,remover,editar,excluir"
+            }
+        ]
+    }
+  ]
+}

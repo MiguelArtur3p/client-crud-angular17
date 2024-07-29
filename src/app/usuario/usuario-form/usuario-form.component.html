@@ -1,0 +1,60 @@
+<div>
+    <form [formGroup]="usuarioCadastroForm" class="mt-4 col-md-6 p-3 shadow border">
+        <h4 class="my-3">Cadastrar de Usuário</h4>
+        <div class="col-md-7 mb-3">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" formControlName="email" [ngClass]="_validarInputService.aplicaCssErro(usuarioCadastroForm,'email')" class="form-control" placeholder="email@hotmail.com">
+                <app-campo-control-invalid [mostrarErro]="_validarInputService.verificarRequired(usuarioCadastroForm,'email')" msgErro="Email é obrigatório!"></app-campo-control-invalid>
+                <app-campo-control-invalid [mostrarErro]="_validarInputService.verificarEmailInvalido(usuarioCadastroForm)" msgErro="Digite um email válido!"></app-campo-control-invalid>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="email" name="password" id="password" formControlName="password" [ngClass]="_validarInputService.aplicaCssErro(usuarioCadastroForm,'password')" class=" form-control">
+                <app-campo-control-invalid [mostrarErro]="_validarInputService.verificarRequired(usuarioCadastroForm,'password')" msgErro="Senha é obrigatório!"></app-campo-control-invalid>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmarPassword" class="form-label">Confirmar senha</label>
+                <input type="email" name="confirmarPassword" id="confirmarPassword" class="form-control">
+                <!-- <app-campo-control-invalid [mostrarErro]="_validarInputService.verificarRequired(usuarioCadastroForm,'password')" msgErro="Senha é obrigatório!"></app-campo-control-invalid> -->
+            </div>
+
+            <div class="mb-3">
+                <label for="empresaId" class="form-label">Empresa</label>
+                <select type="text" name="empresaId" id="empresaId" formControlName="empresaId" [ngClass]="_validarInputService.aplicaCssErro(usuarioCadastroForm,'empresaId')" class="form-control" placeholder="Id da empresa">
+                    <option value="68cb1779-9e34-4677-8627-1596c1c48247" selected disabled>Selecionar</option>
+                    <option value="68cb1779-9e34-4677-8627-1596c1c48247">RR</option>
+                    <option value="602c2ca8-014a-48b3-ab93-97a8ab716694">RR</option>
+                </select>
+                <app-campo-control-invalid [mostrarErro]="_validarInputService.verificarRequired(usuarioCadastroForm,'empresaId')" msgErro="Empresa é obrigatório!"></app-campo-control-invalid>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="permissoes" class="form-label text-nowrap">Grupo de Usuário</label>
+                <div class="input-group">
+                    <input type="text" name="permissoes" id="permissoes" formControlName="permissoes" [ngClass]="_validarInputService.aplicaCssErro(usuarioCadastroForm,'permissoes')" class="form-control">
+                    <button type="button" id="modalPesquisarGrupoPermissoes" class="btn btn-outline-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                    <app-campo-control-invalid [mostrarErro]="_validarInputService.verificarRequired(usuarioCadastroForm,'permissoes')" msgErro="Permissoes é obrigatório!"></app-campo-control-invalid>
+
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <label for="nomeGrupoPermissoes" class="form-label opacity-0">NP</label>
+                <input type="text" id="nomeGrupoPermissoes" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="py-4">
+            <button class="btn btn-primary me-2" (click)="salvar()">Salvar</button>
+            <button class="btn btn-secondary">Cancelar</button>
+        </div>
+    </form>
+</div>
