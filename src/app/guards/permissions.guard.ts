@@ -9,8 +9,8 @@ export const permissionsGuard: CanActivateFn = (
     state: RouterStateSnapshot
 ) =>
 {
-    let rota = inject(RotasService).obterParametrosRotaAuth(route, state).rota;
-    let operacao = inject(RotasService).obterParametrosRotaAuth(route, state).operacao;
+    let rota = route.data['rota'];
+    let operacao = route.data['operacao'];
 
     return inject(UsuarioService).verificarPermissoesUsuario(rota!, operacao!) ? true : confirm('Você não tem permissão para acessar essa pagina') ? false : false
 };

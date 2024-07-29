@@ -29,14 +29,14 @@ const routes: Routes = [
                 canActivate: [authGuard],
             },
             {
-                path: '',
+                path: 'usuario',
                 loadChildren: () =>
                     import('./usuario/usuario.module').then((m) => m.UsuarioModule),
             },
         ]
     },
     {
-        path: '/login',
+        path: 'login',
         component: LoginFormComponent
     }
     // { path: '**', component: PaginaNaoEncontradaComponent },

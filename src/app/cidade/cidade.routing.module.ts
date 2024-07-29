@@ -8,10 +8,10 @@ import { canDeactivateForm } from '../guards/form-candeactivate';
 
 const routes: Routes = [
     { path: '', component: CidadeListComponent },
-    { path: 'cidade/adicionar', component: CidadeFormComponent, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
-    { path: 'cidade/detalhes/:id', component: CidadeFormComponent, canActivate: [permissionsGuard] },
-    { path: 'cidade/editar/:id', component: CidadeFormComponent, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
-    { path: 'cidade/remover/:id', component: CidadeFormComponent, canActivate: [permissionsGuard] },
+    { path: 'adicionar', component: CidadeFormComponent, data: { operacao: 'adicionar', rota: 'cidade' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
+    { path: 'detalhes/:id', component: CidadeFormComponent, data: { operacao: 'detalhes', rota: 'cidade' }, canActivate: [permissionsGuard] },
+    { path: 'editar/:id', component: CidadeFormComponent, data: { operacao: 'editar', rota: 'cidade' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
+    { path: 'remover/:id', component: CidadeFormComponent, data: { operacao: 'remover', rota: 'cidade' }, canActivate: [permissionsGuard] },
 ];
 
 @NgModule({

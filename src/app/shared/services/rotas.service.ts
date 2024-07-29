@@ -32,21 +32,6 @@ export class RotasService
         this._router.navigate([rota]);
     }
 
-    obterParametrosRotaAuth(routeState: ActivatedRouteSnapshot, activatedState: RouterStateSnapshot)
-    {
-        if (routeState.url.length > 0)
-        {
-            let rota = routeState.url[0].path;
-            let operacao = routeState.url[1].path;
-            operacao = operacao === 'detalhes' ? 'consultar' : operacao;
-            return { rota: rota, operacao: operacao }
-        } else
-        {
-            let rota = activatedState.url.match(/\w+/)?.[0];
-            return { rota, operacao: null }
-        }
-    }
-
     get obterParametrosRotaPaginaAtual()
     {
         let rota = this._route.snapshot.url[0].path;

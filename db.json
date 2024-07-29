@@ -70,11 +70,11 @@
         "claim":[
             {
                 "type":"cliente",
-                "value":"adicionar,remover,editar,excluir"
+                "value":"adicionar,remover,editar,detalhes"
             },
             {
                 "type":"cidade",
-                "value":"adicionar,remover,editar,excluir"
+                "value":"adicionar,remover,editar,detalhes"
             }
         ]
     }
