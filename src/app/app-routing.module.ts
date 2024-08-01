@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth.guard';
 import { PaginaNaoEncontradaComponent } from './shared/components/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { LoginFormComponent } from './usuario/login-form/login-form.component';
+import { anyPermission } from './guards/any-permission.guard';
 
 const routes: Routes = [
     {
@@ -20,13 +21,18 @@ const routes: Routes = [
                 path: 'cliente',
                 loadChildren: () =>
                     import('./cliente/cliente.module').then((m) => m.ClienteModule),
-                canActivate: [authGuard],
+                canMatch: [authGuard, anyPermission],
             },
             {
                 path: 'cidade',
                 loadChildren: () =>
                     import('./cidade/cidade.module').then((m) => m.CidadeModule),
-                canActivate: [authGuard],
+                canMatch: [authGuard, anyPermission],
+            },
+            {
+                path: 'home',
+                loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+                canActivate: [authGuard]
             },
             {
                 path: 'usuario',

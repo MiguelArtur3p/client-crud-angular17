@@ -36,7 +36,6 @@ export class UsuarioService
         if ((usuarioResponse[0].email === usuarioRequest.email) && (usuarioResponse[0].senha === usuarioRequest.password))
         {
             this.salvarUsuarioLogadoNoLocalStorage(usuarioResponse[0]);
-            this._router.navigate(['']);
             this._rotasService.redirecionarAposLogin();
         }
         else
@@ -62,7 +61,7 @@ export class UsuarioService
         localStorage.setItem(this.keyLogin, JSON.stringify(usuarioLoginResponse));
     }
 
-    verificarUsuarioLogado(): boolean | UsuarioLoginResponse
+    verificarUsuarioLogado(): boolean
     {
         return localStorage.getItem(this.keyLogin) ? true : false;
     }
@@ -72,21 +71,23 @@ export class UsuarioService
         return JSON.parse(localStorage.getItem(this.keyLogin)!) || false;
     }
 
-    verificarPermissoesUsuario(rota: string, operacao: string): boolean
+    verificarPermissaoUsuario(rota: string, operacao: string): boolean
     {
         let usuarioLogado: UsuarioLoginResponse = this.obterUsuarioLocalStorage();
         operacao = this.converterOperacaoParaPermissao(operacao);
-        if (!usuarioLogado)
-        {
-            this._router.navigate([''])
-            return false;
-        }
-        else
-        {
-            let claim = usuarioLogado.claim.find(claim => claim.type.toLowerCase() === rota)
-            if (!claim) return false;
-            return claim.value.toLowerCase().includes(operacao);
-        }
+
+        let claim = usuarioLogado.claim.find(claim => claim.type.toLowerCase() === rota)
+        if (!claim) return false;
+        return claim.value.toLowerCase().includes(operacao);
+    }
+
+    verificarSeUsuarioPossuiAlgumaPermissao(rota: string)
+    {
+        let usuarioLogado: UsuarioLoginResponse = this.obterUsuarioLocalStorage();
+        if (!usuarioLogado) return false
+        let claim = usuarioLogado.claim.find(claim => claim.type.toLowerCase() === rota)
+        if (!claim) return false;
+        return claim.value === '' ? false : true;
     }
 
     verificarTrocarUsuario(rota: string, operacao: string, id?: string)
