@@ -8,10 +8,10 @@ import { ClienteListComponent } from './cliente-list/cliente-list.component';
 
 const routes: Routes = [
     { path: '', component: ClienteListComponent },
-    { path: 'adicionar', component: ClienteFormComponent, data: { operacao: 'adicionar', rota: 'cidade' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
-    { path: 'detalhes/:id', component: ClienteFormComponent, data: { operacao: 'detalhes', rota: 'cidade' }, canActivate: [permissionsGuard] },
-    { path: 'editar/:id', component: ClienteFormComponent, data: { operacao: 'editar', rota: 'cidade' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
-    { path: 'remover/:id', component: ClienteFormComponent, data: { operacao: 'remover', rota: 'cidade' }, canActivate: [permissionsGuard] },
+    { path: 'adicionar', component: ClienteFormComponent, data: { operacao: 'adicionar', rota: 'cliente' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
+    { path: 'detalhes/:id', component: ClienteFormComponent, data: { operacao: 'detalhes', rota: 'cliente' }, canActivate: [permissionsGuard] },
+    { path: 'editar/:id', component: ClienteFormComponent, data: { operacao: 'editar', rota: 'cliente' }, canActivate: [permissionsGuard], canDeactivate: [canDeactivateForm] },
+    { path: 'remover/:id', component: ClienteFormComponent, data: { operacao: 'remover', rota: 'cliente' }, canActivate: [permissionsGuard] },
 ];
 
 @NgModule({
