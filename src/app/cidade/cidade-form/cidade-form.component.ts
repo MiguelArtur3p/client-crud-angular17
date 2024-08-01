@@ -65,10 +65,8 @@ export class CidadeFormComponent implements OnInit, IFormCanDeactivate
 
     validar() 
     {
-        if (this.cidadeForm.valid) 
-        {
+        if (this.cidadeForm.valid)
             return true;
-        }
         else 
         {
             this._validarInputs.verificarValidacoesForm(this.cidadeForm)
@@ -79,10 +77,8 @@ export class CidadeFormComponent implements OnInit, IFormCanDeactivate
 
     desativarInputs() 
     {
-        if (this.operacao == 'detalhes' || this.operacao == 'remover') 
-        {
+        if (this.operacao == 'detalhes' || this.operacao == 'remover')
             this.cidadeForm.disable();
-        }
     }
 
     mostrarCidade() 
@@ -100,13 +96,9 @@ export class CidadeFormComponent implements OnInit, IFormCanDeactivate
     {
         console.log('foi')
         if (this._modalService.modalEstaAberta)
-        {
             this._modalService.alternarModal(CidadeListModalComponent);
-        }
         else
-        {
             this._router.navigate(['/cidade']);
-        }
     }
 
     salvar() 
@@ -124,16 +116,11 @@ export class CidadeFormComponent implements OnInit, IFormCanDeactivate
 
     desativarRota(): boolean 
     {
-        if (this.cidadeForm.dirty) 
-        {
+        if (this.cidadeForm.dirty)
             return this.podeDesativar ? true : false
-        }
-        else 
-        {
+        else
             return true
-        }
     }
-
 
     abrirModalDeConfirmacao() 
     {

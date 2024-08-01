@@ -163,18 +163,14 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
 
     desativarInputs()
     {
-        if (this.operacao == 'detalhes' || this.operacao == 'remover') 
-        {
+        if (this.operacao == 'detalhes' || this.operacao == 'remover')
             this.clienteForm.disable();
-        }
     }
 
     validar()
     {
-        if (this.clienteForm.valid) 
-        {
+        if (this.clienteForm.valid)
             return true;
-        }
         else 
         {
             this._validarInputs.verificarValidacoesForm(this.clienteForm)
@@ -229,15 +225,10 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
 
     desativarRota(): boolean
     {
-        if (this.clienteForm.dirty) 
-        {
+        if (this.clienteForm.dirty)
             return this.podeDesativar ? true : false
-
-        }
-        else 
-        {
+        else
             return true;
-        }
     }
 
     definirIdCidade(idCidadeSelecionada: string)

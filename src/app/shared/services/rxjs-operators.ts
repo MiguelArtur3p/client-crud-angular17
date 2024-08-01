@@ -11,8 +11,6 @@ export function uploadProgresso<T>(callback: (progresso: number) => void)
     return tap((event: HttpEvent<T>) =>
     {
         if (event.type === HttpEventType.UploadProgress)
-        {
             callback(Math.round((event.loaded * 100) / event.total!))
-        }
     })
 }

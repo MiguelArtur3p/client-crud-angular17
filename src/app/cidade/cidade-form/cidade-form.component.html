@@ -7,6 +7,7 @@
                     <label for="id" class="form-label">Código</label>
                     <input type="text" id="id" formControlName="id" readonly class="form-control">
                 </div>
+
                 <div class="col-md-7">
                     <label for="cidade" class="form-label">Cidade</label>
                     <input type="text" id="cidade" formControlName="cidade" [ngClass]="aplicarCssCamposInvalidos('cidade')" class="form-control">
@@ -26,6 +27,7 @@
                     <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('estado')" msgErro="Estado obrigatório!"></app-campo-control-invalid>
 
                 </div>
+
                 <div class="col-md-3">
                     <label for="ibge" class="form-label text-nowrap">Código IBGE</label>
                     <input type="text" formControlName="ibge" id="ibge" [ngClass]="aplicarCssCamposInvalidos('ibge')" class="form-control">

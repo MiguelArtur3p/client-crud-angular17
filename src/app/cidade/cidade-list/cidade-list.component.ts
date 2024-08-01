@@ -43,9 +43,7 @@ export class CidadeListComponent implements OnInit
             this.desativarOperacoes = rota?.includes('cliente/detalhes/:id') || rota?.includes('cliente/remover/:id') ? true : false
         }
         else
-        {
             this.desativarOperacoes = false
-        }
     }
 
     pesquisar(event: Event)
@@ -75,9 +73,7 @@ export class CidadeListComponent implements OnInit
             this._modalService.alternarModal(CidadeFormModalComponent);
         }
         else
-        {
             id ? this._router.navigate(['cidade/' + operacao, id?.toString()]) : this._router.navigate(['cidade/' + operacao])
-        }
     }
 
     passarIdCidadeSelecionada(id: any)

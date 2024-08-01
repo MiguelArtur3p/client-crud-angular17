@@ -49,8 +49,6 @@ export class LoginFormComponent
     }
 
 
-
-
     login() 
     {
         if (!this.validar()) return;

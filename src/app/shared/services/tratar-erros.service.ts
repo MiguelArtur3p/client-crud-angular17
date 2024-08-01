@@ -15,35 +15,22 @@ export class TratarErrosService
 
     tratarErros(error: HttpErrorResponse)
     {
-        if (error.status === 0)
+        switch (error.status)
         {
-            console.log(error)
-            this._alertModalService.mostrarAlertarDanger('Erro inesperado, contate o suporte');
-        }
-        else if (error.status === 400)
-        {
-            this._alertModalService.mostrarAlertarDanger('Erro da validação');
-
-        }
-        else if (error.status === 401)
-        {
-            this._usuarioService.deslogar();
-        }
-        else if (error.status === 403)
-        {
-            this._alertModalService.mostrarAlertarDanger('Erro da validação');
-            //caso o usuario nao tenha permissão, pergunta se ele quer trocar de login e redireciona
-            // this._router.navigate(['/login'])
-        }
-        else if (error.status === 404)
-        {
-            console.log(error)
-
-            this._router.navigate(['/naoencontrada'])
-        }
-        else if (error.status === 500)
-        {
-            this._alertModalService.mostrarAlertarDanger('Erro inesperado, contate o suporte');
+            case 0: this._alertModalService.mostrarAlertarDanger('Erro inesperado, contate o suporte');
+                break;
+            case 400: this._alertModalService.mostrarAlertarDanger('Erro da validação');
+                break;
+            case 401: this._usuarioService.deslogar();
+                break;
+            case 403: this._alertModalService.mostrarAlertarDanger('Erro da validação');
+                break;
+            case 404: this._router.navigate(['/naoencontrada']);
+                break;
+            case 500: this._alertModalService.mostrarAlertarDanger('Erro inesperado, contate o suporte');
+                break;
+            default: this._alertModalService.mostrarAlertarDanger('Erro inesperado, contate o suporte');
+                break;
         }
     }
 }

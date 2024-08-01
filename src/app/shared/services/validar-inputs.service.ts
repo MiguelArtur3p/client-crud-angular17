@@ -14,9 +14,7 @@ export class ValidarInputsService
             const controle = form.get(campo);
             controle.markAsDirty();
             if (controle instanceof FormGroup)
-            {
                 this.verificarValidacoesForm(controle);
-            }
         })
     }
 
@@ -34,9 +32,7 @@ export class ValidarInputsService
     {
         let campoEmail = form.get('email');
         if (campoEmail.errors)
-        {
             return campoEmail.errors['email'] && campoEmail.touched
-        }
     }
 
     aplicaCssErro(form: any, campo: string)

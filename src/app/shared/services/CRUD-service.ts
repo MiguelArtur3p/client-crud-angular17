@@ -34,12 +34,9 @@ export class CrudService<T extends { id?: number }>
     {
         if (!valor) return;
         if (valor.id)
-        {
             return this.editar(valor);
-        } else
-        {
+        else
             return this.adicionar(valor);
-        }
     }
 
     remover(id: number)
