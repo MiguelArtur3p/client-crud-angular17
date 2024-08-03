@@ -4,7 +4,7 @@ import { delay, take, tap } from "rxjs";
 export class CrudService<T extends { id?: number }>
 {
 
-    constructor(protected _http: HttpClient, private URL: string) { }
+    constructor(protected _http: HttpClient, protected URL: string) { }
 
     obterRegistroPorNome(nome: string)
     {

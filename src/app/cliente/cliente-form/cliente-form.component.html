@@ -2,7 +2,7 @@
     <div>
         <h4 class="border-bottom mb-4">Cadastro de Cliente</h4>
 
-        <form [formGroup]="clienteForm">
+        <form [formGroup]="formulario">
             <div class="row mb-3">
                 <div class="col-md-1">
                     <label for="id" class="form-label">Código</label>
@@ -35,15 +35,15 @@
                             </svg>
                         </button>
                     </div>
-                    <app-campo-control-invalid [mostrarErro]="clienteForm.get('codigoCidade')?.hasError('required') && clienteForm.get('codigoCidade')?.touched" msgErro="Código da cidade obrigatório!"></app-campo-control-invalid>
+                    <app-campo-control-invalid [mostrarErro]="formulario.get('codigoCidade')?.hasError('required') && formulario.get('codigoCidade')?.touched" msgErro="Cidade é obrigatória!"></app-campo-control-invalid>
 
                 </div>
 
                 <div class="col-md">
                     <label for="cidade" class="form-label">Cidade</label>
                     <input type="text" #inputCidade id="cidade" disabled class="form-control">
-                    <app-campo-control-invalid [mostrarErro]="clienteForm.get('codigoCidade')?.status === 'PENDING'" msgErro="Buscando Cidade!"></app-campo-control-invalid>
-                    <app-campo-control-invalid [mostrarErro]="clienteForm.get('codigoCidade')?.hasError('cidadeNaoEncontrada')" msgErro="Cidade não encontrada!"></app-campo-control-invalid>
+                    <app-campo-control-invalid [mostrarErro]="formulario.get('codigoCidade')?.status === 'PENDING'" msgErro="Buscando Cidade!"></app-campo-control-invalid>
+                    <app-campo-control-invalid [mostrarErro]="formulario.get('codigoCidade')?.hasError('cidadeNaoEncontrada')" msgErro="Cidade não encontrada!"></app-campo-control-invalid>
                 </div>
 
                 <div class="col-md">

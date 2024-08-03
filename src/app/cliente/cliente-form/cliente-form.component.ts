@@ -2,7 +2,7 @@ import
 { Component, ElementRef, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -18,22 +18,18 @@ import { CidadeService } from '../../cidade/services/cidade.service';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { uploadProgresso, filtrarResposta } from '../../shared/services/rxjs-operators';
 import { CidadeListModalComponent } from '../../cidade/modals/cidade-list-modal/cidade-list-modal.component';
-import { ConfirmacaoModalComponent } from '../../shared/components/confirmacao-modal/confirmacao-modal.component';
+import { BaseFormComponent } from '../../shared/components/base-form/base-form.component';
 
 @Component({
     selector: 'app-cliente-form',
     templateUrl: './cliente-form.component.html',
     styleUrl: './cliente-form.component.css',
 })
-export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
+export class ClienteFormComponent extends BaseFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
 {
-    clienteForm: FormGroup;
-    id: number | undefined;
-    operacao!: string | null;
     cliente: Cliente | undefined;
     cidadeNaoEncontrada: boolean = false;
     inscricao: Subscription | undefined;
-    podeDesativar = false;
     progressoUpload = 0;
 
     @ViewChild('inputCidade', { static: false }) inputCidade!: ElementRef;
@@ -48,14 +44,16 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
         private _cidadeService: CidadeService,
         private _route: ActivatedRoute,
         private _router: Router,
-        private _validarInputs: ValidarInputsService,
         private _cidadeValidator: CidadeValidatorService,
-        private _modalService: ModalService,
         private _alertModalService: AlertModalService,
-        private _tratarErrosService: TratarErrosService
+        override _tratarErrosService: TratarErrosService,
+        public override _validarInputs: ValidarInputsService,
+        override _modalService: ModalService
     ) 
     {
-        this.clienteForm = this._formBuilder.group({
+        super(_modalService, _validarInputs, _tratarErrosService);
+
+        this.formulario = this._formBuilder.group({
             id: [''],
             nomeCliente: ['', Validators.required],
             cpf: ['', Validators.required],
@@ -75,6 +73,112 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
         });
     }
 
+    ngOnInit()
+    {
+        this.obterParametrosRota();
+
+        this.obterCidadeAoSelecionar();
+
+        if (this.operacao == 'adicionar' || !this.id) return;
+        this.obterClientePorId();
+    }
+
+    override obterParametrosRota()
+    {
+        this.id = this._route.snapshot.params['id'];
+        this.operacao = this._route.snapshot.data['operacao'];
+    }
+
+    override redirecionarAposOperacao()
+    {
+        if (this._modalService.modalEstaAberta) return
+        this._router.navigate(['/cliente']);
+    }
+
+    override tratarSucessoAposObterRegistroPorId(): void
+    {
+        this.mostrarCliente(), this.mostrarTelefones();
+        this.obterCidade(this.inputCodigoCidade.nativeElement.value.toString());
+        this.desativarInputs();
+    }
+
+    override validar()
+    {
+        if (this.formulario.valid)
+            return true;
+        else 
+        {
+            this._validarInputs.verificarValidacoesForm(this.formulario)
+            alert('Preencha todos os campos obrigatório');
+            return false;
+        }
+    }
+
+    override salvar()
+    {
+        if (!this.validar()) return;
+        this.criarCliente();
+        this.podeDesativar = true;
+
+        this._clienteService.salvar(this.cliente!)?.subscribe({
+            next: success => this._alertModalService.mostrarAlertarSuccess('Operação executada com sucesso!', 2000),
+            error: error => this._tratarErrosService.tratarErros(error),
+            complete: () => this.redirecionarAposOperacao()
+        })
+    }
+
+    override remover()
+    {
+        if (!this.id) return;
+        this._clienteService.remover(this.id)?.subscribe({
+            next: success => this._alertModalService.mostrarAlertarSuccess('Operação executada com sucesso!', 2000),
+            error: error => this._tratarErrosService.tratarErros(error),
+            complete: () => this.redirecionarAposOperacao()
+        })
+    }
+
+    obterClientePorId()
+    {
+        this._clienteService.obterRegistroPorId(this.id!)?.subscribe({
+            next: cliente =>
+            {
+                this.cliente = cliente;
+                this.tratarSucessoAposObterRegistroPorId();
+            },
+            error: error => this.tratarErrorAposObterRegistroPorId(error),
+        })
+    }
+
+    mostrarCliente()
+    {
+        if (!this.cliente) return;
+        this.formulario.patchValue(this.cliente);
+    }
+
+    mostrarCidade(cidade?: Cidade)
+    {
+        if (!cidade) 
+        {
+            this.inputCidade.nativeElement.value = '';
+            this.inputEstado.nativeElement.value = '';
+        }
+        else 
+        {
+            this.inputCidade.nativeElement.value = cidade.cidade;
+            this.inputEstado.nativeElement.value = cidade.estado;
+        }
+    }
+
+    mostrarTelefones()
+    {
+        this.removerTelefone(0);
+        this.cliente?.numeroTelefone.map(numero => this.obterControlTelefones.push(this._formBuilder.control(numero)));
+    }
+
+    criarCliente()
+    {
+        this.cliente = Object.assign({}, this.formulario.value);
+    }
 
     criarArquivo(event: any)
     {
@@ -104,37 +208,6 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
         }
     }
 
-    mostrarCliente()
-    {
-        if (!this.cliente) return;
-        this.clienteForm.patchValue(this.cliente);
-    }
-
-    mostrarCidade(cidade?: Cidade)
-    {
-        if (!cidade) 
-        {
-            this.inputCidade.nativeElement.value = '';
-            this.inputEstado.nativeElement.value = '';
-        }
-        else 
-        {
-            this.inputCidade.nativeElement.value = cidade.cidade;
-            this.inputEstado.nativeElement.value = cidade.estado;
-        }
-    }
-
-    mostrarTelefones()
-    {
-        this.removerTelefone(0);
-        this.cliente?.numeroTelefone.map(numero => this.obterControlTelefones.push(this._formBuilder.control(numero)));
-    }
-
-    get obterControlTelefones()
-    {
-        return this.clienteForm.get('numeroTelefone') as FormArray
-    }
-
     removerTelefone(controls: number)
     {
         this.obterControlTelefones.removeAt(controls)
@@ -146,10 +219,9 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
 
     }
 
-    obterParametrosRota()
+    get obterControlTelefones()
     {
-        this.id = this._route.snapshot.params['id'];
-        this.operacao = this._route.snapshot.data['operacao'];
+        return this.formulario.get('numeroTelefone') as FormArray
     }
 
     obterCidade(id: string)
@@ -157,55 +229,7 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
         this._cidadeService.obterRegistroPorId(Number(id))?.subscribe({
             next: cidade => this.mostrarCidade(cidade),
             error: error => { this.mostrarCidade(), this._tratarErrosService.tratarErros(error) },
-            complete: () => console.log('completa')
         })
-    }
-
-    desativarInputs()
-    {
-        if (this.operacao == 'detalhes' || this.operacao == 'remover')
-            this.clienteForm.disable();
-    }
-
-    validar()
-    {
-        if (this.clienteForm.valid)
-            return true;
-        else 
-        {
-            this._validarInputs.verificarValidacoesForm(this.clienteForm)
-            alert('Preencha todos os campos obrigatório');
-            return false;
-        }
-    }
-
-    redirecionar()
-    {
-        if (this._modalService.modalEstaAberta) return
-        this._router.navigate(['/cliente']);
-    }
-
-    criarCliente()
-    {
-        this.cliente = Object.assign({}, this.clienteForm.value);
-    }
-
-    salvar()
-    {
-        if (!this.validar()) return;
-        this.criarCliente();
-        this.podeDesativar = true;
-
-        this._clienteService.salvar(this.cliente!)?.subscribe({
-            next: success => this._alertModalService.mostrarAlertarSuccess('Operação executada com sucesso!', 2000),
-            error: error => this._tratarErrosService.tratarErros(error),
-            complete: () => this.redirecionar()
-        })
-    }
-
-    abrirModalDeConfirmacao()
-    {
-        this._modalService.abrirModalConfirmacao(ConfirmacaoModalComponent, 'Confirmação', 'Tem certeza que deseja excluir esta cidade?', { class: 'modal-sm' })?.pipe(take(1)).subscribe(resposta => resposta ? this.remover() : this._modalService.modalRef?.hide())
     }
 
     abrirModal()
@@ -213,47 +237,15 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
         this._modalService.abrirModal(CidadeListModalComponent)
     }
 
-    remover()
-    {
-        if (!this.id) return;
-        this._clienteService.remover(this.id)?.subscribe({
-            next: success => this._alertModalService.mostrarAlertarSuccess('Operação executada com sucesso!', 2000),
-            error: error => this._tratarErrosService.tratarErros(error),
-            complete: () => this.redirecionar()
-        })
-    }
-
-    desativarRota(): boolean
-    {
-        if (this.clienteForm.dirty)
-            return this.podeDesativar ? true : false
-        else
-            return true;
-    }
 
     definirIdCidade(idCidadeSelecionada: string)
     {
         if (!idCidadeSelecionada) return;
         this.obterCidade(idCidadeSelecionada)
-        this.clienteForm.get('codigoCidade')?.setValue(idCidadeSelecionada);
+        this.formulario.get('codigoCidade')?.setValue(idCidadeSelecionada);
     }
 
-    verificarCampoInvalid(campo: string)
-    {
-        return this._validarInputs.verificarValidTouch(this.clienteForm, campo);
-    }
-
-    verificarCampoEmail()
-    {
-        return this._validarInputs.verificarEmailInvalido(this.clienteForm)
-    }
-
-    aplicarCssCamposInvalidos(campo: string)
-    {
-        return this._validarInputs.aplicaCssErro(this.clienteForm, campo)
-    }
-
-    ngOnInit()
+    obterCidadeAoSelecionar()
     {
         this.inscricao = this._cidadeService.idCidadeSelecionadaEmitter.subscribe(id =>
         {
@@ -261,21 +253,6 @@ export class ClienteFormComponent implements OnInit, OnDestroy, IFormCanDeactiva
             this._modalService.fecharModal();
             this._modalService.modalEstaAberta = false;
         })
-
-        this.obterParametrosRota();
-        if (this.operacao == 'adicionar' || !this.id) return;
-        this._clienteService.obterRegistroPorId(this.id)?.subscribe({
-            next: dado => this.cliente = dado,
-            error: error => { this._tratarErrosService.tratarErros(error), this.redirecionar() },
-            complete: () =>
-            {
-                this.mostrarCliente(), this.mostrarTelefones();
-                this.obterCidade(this.inputCodigoCidade.nativeElement.value.toString());
-                this.desativarInputs();
-            }
-        })
-
-
     }
 
     ngOnDestroy()

@@ -15,7 +15,7 @@ export class CidadeValidatorService implements AsyncValidator
 
     validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null>
     {
-        return this._cidadeService.verificarCidade(control.value).pipe(map((cidade: Cidade) => (cidade ? null : { cidadeNaoEncontrada: true })), catchError(() => of({ cidadeNaoEncontrada: true })),);
+        return this._cidadeService.verificarCidade(control.value).pipe(map((cidade: Cidade) => (cidade ? null : { cidadeNaoEncontrada: true })), catchError(() => of({ cidadeNaoEncontrada: true })));
     }
 }
 
