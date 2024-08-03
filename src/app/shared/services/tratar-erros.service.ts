@@ -25,7 +25,7 @@ export class TratarErrosService
                 break;
             case 403: this._alertModalService.mostrarAlertarDanger('Erro da validação');
                 break;
-            case 404: this._router.navigate(['/naoencontrada']);
+            case 404: null
                 break;
             case 500: this._alertModalService.mostrarAlertarDanger('Erro inesperado, contate o suporte');
                 break;

@@ -1,7 +1,7 @@
 <div class="container shadow p-4">
     <div>
         <h4 class="border-bottom mb-4" *ngIf="!_modalService.modalEstaAberta">Cadastro de Cidade</h4>
-        <form [formGroup]="cidadeForm">
+        <form [formGroup]="formulario">
             <div class="row mb-3">
                 <div class="col-md-1">
                     <label for="id" class="form-label">Código</label>
@@ -37,8 +37,8 @@
             <div class="mt-4">
                 <button class="btn btn-primary" *ngIf="operacao === 'adicionar' || operacao === 'editar'" (click)="salvar()">Salvar</button>
                 <button class="btn btn-danger" *ngIf="operacao==='remover'" (click)="abrirModalDeConfirmacao()">Remover</button>
-                <button class="btn btn-secondary m-2" *ngIf="operacao === 'detalhes'" (click)="redirecionar()">Voltar</button>
-                <button class="btn btn-secondary m-2" *ngIf="operacao !== 'detalhes'" (click)="redirecionar()">Cancelar</button>
+                <button class="btn btn-secondary m-2" *ngIf="operacao === 'detalhes'" (click)="redirecionarAposOperacao()">Voltar</button>
+                <button class="btn btn-secondary m-2" *ngIf="operacao !== 'detalhes'" (click)="redirecionarAposOperacao()">Cancelar</button>
             </div>
         </form>
     </div>
