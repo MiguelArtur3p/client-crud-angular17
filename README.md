@@ -1,5 +1,5 @@
 ## SPA de Gerenciamento de Clientes
-Este repositório apresenta uma aplicação de página única (SPA) para gerenciamento de clientes, desenvolvida com Angular (2+) e TypeScript. A aplicação é projetada para realizar operações CRUD (criar, ler, atualizar e excluir) em clientes de forma eficiente e intuitiva.
+É uma aplicação de página única (SPA) para gerenciamento de clientes, desenvolvida com Angular (2+) e TypeScript. A aplicação é projetada para realizar operações CRUD (criar, ler, atualizar e excluir) em clientes de forma eficiente e intuitiva.
 
 ## Funcionalidades
 
