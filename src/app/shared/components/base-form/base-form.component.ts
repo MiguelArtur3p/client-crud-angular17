@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { take } from 'rxjs';
 
 import { ModalService } from '../../services/modal.service';
@@ -27,6 +27,7 @@ export class BaseFormComponent
     protected remover() { };
     protected tratarSucessoAposObterRegistroPorId() { };
     protected validar() { };
+    protected _formBuilder = inject(NonNullableFormBuilder);
 
     desativarInputs() 
     {

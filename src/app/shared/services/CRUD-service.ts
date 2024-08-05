@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { delay, take, tap } from "rxjs";
 
-export class CrudService<T extends { id?: number }>
+export class CrudService<T extends { id?: string }>
 {
 
     constructor(protected _http: HttpClient, protected URL: string) { }

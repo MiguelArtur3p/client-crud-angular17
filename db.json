@@ -1,5 +1,42 @@
 {
-  "clientes": [],
+  "clientes": [
+    {
+      "id": 1,
+      "nome": "Miguel Artur Corrêa142",
+      "cpf": "136.661.436-44",
+      "dataNascimento": "1997-08-26",
+      "codigoCidade": "11",
+      "pais": "Brasil",
+      "endereco": {
+        "rua": "Paraíba",
+        "numeroCasa": 123,
+        "bairro": "Santa Edwiges"
+      },
+      "numeroTelefone": [
+        "35998445408"
+      ],
+      "numeroCelular": "35998445408",
+      "email": "miguel.3tp@hotmail.com"
+    },
+    {
+      "id": 2,
+      "nome": "Miguel Artur Corrêa",
+      "cpf": "136.661.436-44",
+      "dataNascimento": "1997-08-26",
+      "codigoCidade": "13",
+      "pais": "Brasil",
+      "endereco": {
+        "rua": "Paraíba",
+        "numeroCasa": 1,
+        "bairro": "Santa Edwiges"
+      },
+      "numeroTelefone": [
+        "35998445408"
+      ],
+      "numeroCelular": "35998445408",
+      "email": "miguel.3tp@hotmail.com"
+    }
+  ],
   "cidades": [
     {
       "id": 6,
@@ -12,24 +49,6 @@
       "cidade": "Varginha2",
       "estado": "MG",
       "ibge": "12412"
-    },
-    {
-      "id": 11,
-      "cidade": "Três Pontas1",
-      "estado": "SP",
-      "ibge": "214214"
-    },
-    {
-      "id": 12,
-      "cidade": "Três Pontas",
-      "estado": "MG",
-      "ibge": "214214"
-    },
-    {
-      "id": 13,
-      "cidade": "Três Pontas",
-      "estado": "MG",
-      "ibge": "214214"
     },
     {
       "id": 14,
@@ -67,16 +86,16 @@
       "id": 1,
       "email": "usuario@hotmail.com",
       "senha": "123456",
-        "claim":[
-            {
-                "type":"cliente",
-                "value":"adicionar,remover,editar,detalhes"
-            },
-            {
-                "type":"cidade",
-                "value":"adicionar,remover,editar,detalhes"
-            }
-        ]
+      "claim": [
+        {
+          "type": "cliente",
+          "value": "adicionar,remover,editar,detalhes"
+        },
+        {
+          "type": "cidade",
+          "value": "adicionar,remover,editar,detalhes"
+        }
+      ]
     }
   ]
 }

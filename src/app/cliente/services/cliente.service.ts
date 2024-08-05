@@ -25,45 +25,5 @@ export class ClienteService extends CrudService<Cliente>
             reportProgress: true
         })
     }
-    // obterClientePorNome(nome: string) 
-    // {
-    //     if (nome.match(/^\W|^[0-9]/g)) return;
-    //     let pesquisa = nome.toLowerCase();
-    //     return this._http.get<Cliente[]>(`${URL}?q=${pesquisa}`).pipe(take(1))
-    // }
-
-    // obterClientePorId(id: number) 
-    // {
-    //     if (!id) return;
-    //     return this._http.get<Cliente>(`${URL}/${id}`).pipe(take(1))
-    // }
-
-    // private adicionar(cliente: Cliente) 
-    // {
-    //     return this._http.post(URL, cliente).pipe(take(1))
-    // }
-
-    // private editar(cliente: Cliente) 
-    // {
-    //     return this._http.put(`${URL}/${cliente.id}`, cliente)
-    // }
-
-    // salvar(cliente: Cliente)
-    // {
-    //     if (!cliente) return;
-    //     if (cliente.id)
-    //     {
-    //         return this.editar(cliente);
-    //     } else
-    //     {
-    //         return this.adicionar(cliente);
-    //     }
-    // }
-
-    // remover(id: number) 
-    // {
-    //     if (!id) return;
-    //     return this._http.delete(`${URL}/${id}`).pipe(take(1))
-    // }
 
 }

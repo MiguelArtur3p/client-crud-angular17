@@ -1,18 +1,15 @@
+import { Endereco } from "../../cidade/models/endereco";
+
 export interface Cliente
 {
-    id?: number;
-    nomeCliente: string;
+    id?: string;
+    nome: string;
     cpf: string;
-    dataNascimento: Date;
-    cidade: string;
-    uf: string;
+    dataNascimento: string;
+    codigoCidade: string
     pais: string;
-    endereco: {
-        rua: string;
-        numeroCasa: string;
-        bairro: string;
-    };
+    endereco: Endereco;
     numeroTelefone: string[];
     numeroCelular: string;
-    emailCliente: string;
+    email: string;
 }

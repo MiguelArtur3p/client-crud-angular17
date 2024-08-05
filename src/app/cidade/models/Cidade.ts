@@ -1,6 +1,7 @@
-export interface Cidade{
-   id?:number,
-   cidade:string,
-   estado:string,
-   ibge:string
+export interface Cidade
+{
+    id?: string,
+    cidade: string,
+    estado: string,
+    ibge: string
 }

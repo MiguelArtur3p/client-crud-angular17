@@ -20,10 +20,14 @@ import { BaseFormComponent } from '../../shared/components/base-form/base-form.c
 export class CidadeFormComponent extends BaseFormComponent implements OnInit, IFormCanDeactivate 
 {
     cidade: Cidade | undefined;
-
+    override formulario = this._formBuilder.group({
+        id: [''],
+        cidade: ['', Validators.required],
+        estado: ['', Validators.required],
+        ibge: ['', Validators.required],
+    })
     constructor(
         private _route: ActivatedRoute,
-        private _formBuilder: FormBuilder,
         private _cidadeService: CidadeService,
         private _router: Router,
         public _alertModalService: AlertModalService,
@@ -33,20 +37,11 @@ export class CidadeFormComponent extends BaseFormComponent implements OnInit, IF
     ) 
     {
         super(_modalService, _validarInputs, _tratarErrosService);
-
-        this.obterParametrosRota();
-
-        this.formulario = this._formBuilder.group
-            ({
-                id: [null],
-                cidade: ['', Validators.required],
-                estado: ['', Validators.required],
-                ibge: ['', Validators.required],
-            });
     }
 
     ngOnInit() 
     {
+        this.obterParametrosRota();
         if (this.operacao == 'adicionar' || !this.id) return;
         this.obterCidadePorId();
     };
@@ -136,6 +131,6 @@ export class CidadeFormComponent extends BaseFormComponent implements OnInit, IF
 
     criarCidade() 
     {
-        this.cidade = Object.assign({}, this.formulario.value);
+        this.cidade = Object.assign({}, this.formulario.getRawValue());
     }
 }

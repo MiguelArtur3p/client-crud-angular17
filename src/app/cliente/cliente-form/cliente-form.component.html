@@ -6,12 +6,12 @@
             <div class="row mb-3">
                 <div class="col-md-1">
                     <label for="id" class="form-label">Código</label>
-                    <input type="text" id="id" formControlName="id" readonly class="form-control">
+                    <input type="number" id="id" formControlName="id" readonly class="form-control">
                 </div>
                 <div class="col-md-5">
-                    <label for="nomeCliente" class="form-label">Nome</label>
-                    <input type="text" formControlName="nomeCliente" id="nomeCliente" [ngClass]="aplicarCssCamposInvalidos('nomeCliente')" class="form-control">
-                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('nomeCliente')" msgErro="Nome obrigatório!"></app-campo-control-invalid>
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" formControlName="nome" id="nome" [ngClass]="aplicarCssCamposInvalidos('nome')" class="form-control">
+                    <app-campo-control-invalid [mostrarErro]="verificarCampoInvalid('nome')" msgErro="Nome obrigatório!"></app-campo-control-invalid>
                 </div>
                 <div class="col-md-3">
                     <label for="cpf" class="form-label">CPF</label>

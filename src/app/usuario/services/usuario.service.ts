@@ -107,8 +107,6 @@ export class UsuarioService
     {
         if (!operacao)
             return 'consultar'
-        else if (operacao === 'editar')
-            return 'atualizar'
         return operacao
     }
 }
