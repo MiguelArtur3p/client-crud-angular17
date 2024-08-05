@@ -1,6 +1,6 @@
 import
 { Component, ElementRef, OnDestroy, OnInit, ViewChild, } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -31,15 +31,35 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
     cidadeNaoEncontrada: boolean = false;
     inscricao: Subscription | undefined;
     progressoUpload = 0;
+    override formulario = this._formBuilder.group({
+        id: [''],
+        nome: ['', Validators.required],
+        cpf: ['', Validators.required],
+        dataNascimento: ['', Validators.required],
+        codigoCidade: ['', [Validators.required], this._cidadeValidator.validate.bind(this._cidadeValidator), { updateOn: 'change' }],
+        pais: ['', Validators.required],
+        endereco: this._formBuilder.group({
+            rua: ['', Validators.required],
+            numeroCasa: ['', Validators.required],
+            bairro: ['', Validators.required],
+        }),
+        numeroTelefone: this._formBuilder.array([
+            this._formBuilder.control('')
+        ]),
+        numeroCelular: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+    });
 
-    @ViewChild('inputCidade', { static: false }) inputCidade!: ElementRef;
-    @ViewChild('inputEstado', { static: false }) inputEstado!: ElementRef;
+    @ViewChild('inputCidade', { static: false })
+    inputCidade!: ElementRef;
+    @ViewChild('inputEstado', { static: false })
+    inputEstado!: ElementRef;
     @ViewChild('inputCodigoCidade', { static: false })
     inputCodigoCidade!: ElementRef;
     modalRef?: BsModalRef;
 
     constructor(
-        private _formBuilder: FormBuilder,
+
         private _clienteService: ClienteService,
         private _cidadeService: CidadeService,
         private _route: ActivatedRoute,
@@ -52,25 +72,6 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
     ) 
     {
         super(_modalService, _validarInputs, _tratarErrosService);
-
-        this.formulario = this._formBuilder.group({
-            id: [''],
-            nomeCliente: ['', Validators.required],
-            cpf: ['', Validators.required],
-            dataNascimento: ['', Validators.required],
-            codigoCidade: [null, [Validators.required], this._cidadeValidator.validate.bind(this._cidadeValidator), { updateOn: 'change' }],
-            pais: ['', Validators.required],
-            endereco: this._formBuilder.group({
-                rua: ['', Validators.required],
-                numeroCasa: ['', Validators.required],
-                bairro: ['', Validators.required],
-            }),
-            numeroTelefone: this._formBuilder.array([
-                this._formBuilder.control('')
-            ]),
-            numeroCelular: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-        });
     }
 
     ngOnInit()
@@ -172,12 +173,12 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
     mostrarTelefones()
     {
         this.removerTelefone(0);
-        this.cliente?.numeroTelefone.map(numero => this.obterControlTelefones.push(this._formBuilder.control(numero)));
+        this.cliente?.numeroTelefone!.map(numero => this.obterControlTelefones.push(this._formBuilder.control(numero)));
     }
 
     criarCliente()
     {
-        this.cliente = Object.assign({}, this.formulario.value);
+        this.cliente = Object.assign({}, this.formulario.getRawValue());
     }
 
     criarArquivo(event: any)
@@ -242,7 +243,7 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
     {
         if (!idCidadeSelecionada) return;
         this.obterCidade(idCidadeSelecionada)
-        this.formulario.get('codigoCidade')?.setValue(idCidadeSelecionada);
+        this.formulario.get('codigoCidade')?.setValue(idCidadeSelecionada)
     }
 
     obterCidadeAoSelecionar()

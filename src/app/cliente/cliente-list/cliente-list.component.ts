@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Cliente } from '../models/Cliente';
-import { AlertModalService } from '../../shared/services/alert-modal.service';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { ClienteService } from '../services/cliente.service';
 
@@ -18,7 +17,7 @@ export class ClienteListComponent
     unsubscribe$ = new Subject();
 
 
-    constructor(private _clienteService: ClienteService, private _alertModalService: AlertModalService, private _tratarErrosService: TratarErrosService) { }
+    constructor(private _clienteService: ClienteService, private _tratarErrosService: TratarErrosService) { }
 
     pesquisar(event: Event)
     {

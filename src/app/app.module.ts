@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +21,6 @@ import { MenuLateralComponent } from './default-layout/menu-lateral/menu-lateral
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        MatSlideToggleModule,
         HttpClientModule,
         SharedModule,
         ModalModule.forRoot(),

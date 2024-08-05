@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let cliente of clientes">
-                    <td>{{ cliente.nomeCliente }}</td>
+                    <td>{{ cliente.nome }}</td>
                     <td>{{ cliente.endereco.rua }}</td>
                     <td>{{ cliente.dataNascimento | date:'dd-MM-yyyy' }}</td>
                     <td><a [routerLink]="['/cliente/detalhes',cliente.id]" class="me-3"><svg xmlns=" http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 
 import { Cidade } from '../models/Cidade';
 import { CidadeService } from '../services/cidade.service';
-import { AlertModalService } from '../../shared/services/alert-modal.service';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { CidadeFormModalComponent } from '../modals/cidade-form-modal/cidade-form-modal.component';
@@ -28,7 +27,6 @@ export class CidadeListComponent implements OnInit
         private _router: Router,
         private _cidadeService: CidadeService,
         public _modalService: ModalService,
-        private _alertModalService: AlertModalService,
         private _tratarErrosService: TratarErrosService
     )
     {
@@ -65,7 +63,7 @@ export class CidadeListComponent implements OnInit
         this.cidades = undefined
     }
 
-    redirecionarParaOperacao(operacao?: string, id?: number)
+    redirecionarParaOperacao(operacao?: string, id?: string)
     {
         if (this._modalService.modalEstaAberta)
         {
