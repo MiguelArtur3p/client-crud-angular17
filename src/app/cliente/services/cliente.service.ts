@@ -16,6 +16,12 @@ export class ClienteService extends CrudService<Cliente>
         super(_http, `${environment.API}clientes`)
     }
 
+    protected override ordenarRegistro(cliente: Cliente[], pesquisa: string): Cliente[]
+    {
+
+        return cliente.filter(cliente => cliente.nome.includes(pesquisa)).sort()
+    }
+
     enviarArquivo(arquivos: Set<File>)
     {
         const formData = new FormData();

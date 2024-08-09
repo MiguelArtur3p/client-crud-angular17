@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { delay, take, tap } from "rxjs";
+import { delay, map, take, tap } from "rxjs";
 
 export class CrudService<T extends { id?: string }>
 {
@@ -10,7 +10,7 @@ export class CrudService<T extends { id?: string }>
     {
         if (nome.match(/^\W|^[0-9]/g)) return;
         let pesquisa = nome.toLowerCase();
-        return this._http.get<T[]>(`${this.URL}?q=${pesquisa}`).pipe(tap(console.log), take(1))
+        return this._http.get<T[]>(`${this.URL}?q=${pesquisa}`).pipe(tap(console.log), map(registro => this.ordenarRegistro(registro, pesquisa)))
     }
 
     obterRegistroPorId(id: number)
@@ -44,6 +44,9 @@ export class CrudService<T extends { id?: string }>
         if (!id) return;
         return this._http.delete(`${this.URL}/${id}`).pipe(delay(200), take(1))
     }
+
+    protected ordenarRegistro(registro: T[], pesquisa: string): T[] { return registro }
+
 
 }
 

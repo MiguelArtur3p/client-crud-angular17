@@ -81,7 +81,14 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
         this.obterCidadeAoSelecionar();
 
         if (this.operacao == 'adicionar' || !this.id) return;
-        this.obterClientePorId();
+        // this.obterClientePorId();
+
+        this._route.data.subscribe(data =>
+        {
+            this.cliente = data['cliente'];
+            this.tratarSucessoAposObterRegistroPorId()
+        })
+
     }
 
     override obterParametrosRota()
