@@ -77,18 +77,8 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
     ngOnInit()
     {
         this.obterParametrosRota();
-
         this.obterCidadeAoSelecionar();
-
-        if (this.operacao == 'adicionar' || !this.id) return;
-        // this.obterClientePorId();
-
-        this._route.data.subscribe(data =>
-        {
-            this.cliente = data['cliente'];
-            this.tratarSucessoAposObterRegistroPorId()
-        })
-
+        this.obterCliente();
     }
 
     override obterParametrosRota()
@@ -145,15 +135,14 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
         })
     }
 
-    obterClientePorId()
+    obterCliente()
     {
-        this._clienteService.obterRegistroPorId(this.id!)?.subscribe({
-            next: cliente =>
-            {
-                this.cliente = cliente;
-                this.tratarSucessoAposObterRegistroPorId();
-            },
-            error: error => this.tratarErrorAposObterRegistroPorId(error),
+        if (this.operacao == 'adicionar' || !this.id) return;
+
+        this._route.data.subscribe(data =>
+        {
+            this.cliente = data['cliente'];
+            this.tratarSucessoAposObterRegistroPorId()
         })
     }
 

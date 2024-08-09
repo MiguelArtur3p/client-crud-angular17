@@ -42,8 +42,7 @@ export class CidadeFormComponent extends BaseFormComponent implements OnInit, IF
     ngOnInit() 
     {
         this.obterParametrosRota();
-        if (this.operacao == 'adicionar' || !this.id) return;
-        this.obterCidadePorId();
+        this.obterCidade();
     };
 
     //caso a operacao estiver sendo executada de uma modal, a rota é passada manualmente
@@ -111,16 +110,14 @@ export class CidadeFormComponent extends BaseFormComponent implements OnInit, IF
         })
     }
 
-    obterCidadePorId()
+    obterCidade()
     {
-        this._cidadeService.obterRegistroPorId(this.id!)?.subscribe({
-            next: cidade =>
-            {
-                this.cidade = cidade;
-                this.tratarSucessoAposObterRegistroPorId()
-            },
-            error: error => this.tratarErrorAposObterRegistroPorId(error)
-        });
+        if (this.operacao == 'adicionar' || !this.id) return;
+        this._route.data.subscribe(data =>
+        {
+            this.cidade = data['cidade'];
+            this.tratarSucessoAposObterRegistroPorId()
+        })
     }
 
     mostrarCidade() 
