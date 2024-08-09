@@ -27,12 +27,16 @@ export class ClienteListComponent
         if (!pesquisa) return;
         this.carregandoDados = true;
         this._clienteService.obterRegistroPorNome(pesquisa)?.subscribe({
-            next: clientes => { this.carregandoDados = false; this.clientes = clientes },
+            next: clientes => this.tratarSucesso(clientes, pesquisa),
             error: error => this._tratarErrosService.tratarErros(error),
-            complete: () => console.log('upload completo')
         })
     }
 
+    tratarSucesso(clientes: Cliente[], pesquisa: string)
+    {
+        this.carregandoDados = false;
+        this.clientes = this._clienteService.filtrarRegistroPorNome(clientes, pesquisa)
+    }
 
     limparPesquisa()
     {

@@ -52,10 +52,15 @@ export class CidadeListComponent implements OnInit
         if (!pesquisa) return;
         this.carregandoDados = true;
         this._cidadeService.obterRegistroPorNome(pesquisa)?.subscribe({
-            next: cidades => { this.cidades = cidades },
+            next: cidades => this.tratarSucesso(cidades, pesquisa),
             error: error => this._tratarErrosService.tratarErros(error),
-            complete: () => this.carregandoDados = false
         })
+    }
+
+    tratarSucesso(cidades: Cidade[], pesquisa: string)
+    {
+        this.carregandoDados = false;
+        this.cidades = this._cidadeService.filtrarRegistroPorNome(cidades, pesquisa)
     }
 
     limparPesquisa()

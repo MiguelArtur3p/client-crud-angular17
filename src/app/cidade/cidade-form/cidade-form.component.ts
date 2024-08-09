@@ -22,7 +22,7 @@ export class CidadeFormComponent extends BaseFormComponent implements OnInit, IF
     cidade: Cidade | undefined;
     override formulario = this._formBuilder.group({
         id: [''],
-        cidade: ['', Validators.required],
+        nome: ['', Validators.required],
         estado: ['', Validators.required],
         ibge: ['', Validators.required],
     })

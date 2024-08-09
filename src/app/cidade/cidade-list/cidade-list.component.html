@@ -25,7 +25,7 @@
             <tbody>
                 <tr *ngFor="let cidade of cidades;" (dblclick)="passarIdCidadeSelecionada(cidade.id)">
                     <td>{{ cidade.id }}</td>
-                    <td>{{ cidade.cidade }}</td>
+                    <td>{{ cidade.nome }}</td>
                     <td>{{ cidade.estado }}</td>
                     <td>{{ cidade.ibge }}</td>
                     <td *ngIf="!desativarOperacoes">

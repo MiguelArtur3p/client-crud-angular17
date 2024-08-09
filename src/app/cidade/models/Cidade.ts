@@ -1,7 +1,7 @@
 export interface Cidade
 {
     id?: string,
-    cidade: string,
+    nome: string,
     estado: string,
     ibge: string
 }

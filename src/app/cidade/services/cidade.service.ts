@@ -5,8 +5,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { Cidade } from '../models/Cidade';
 import { CrudService } from '../../shared/services/CRUD-service';
 import { environment } from '../../environment/environment';
-import { tap } from 'rxjs';
-import { Cliente } from '../../cliente/models/Cliente';
+
 
 @Injectable({
     providedIn: 'root',
@@ -21,11 +20,6 @@ export class CidadeService extends CrudService<Cidade>
     constructor(protected override _http: HttpClient)
     {
         super(_http, `${environment.API}cidades`)
-    }
-
-    protected override ordenarRegistro(registro: Cidade[], pesquisa: string)
-    {
-        return registro.filter(registro => registro.cidade.toLowerCase().includes(pesquisa)).sort();
     }
 
     verificarCidade(id: string)

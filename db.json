@@ -188,73 +188,73 @@
   "cidades": [
     {
       "id": 6,
-      "cidade": "Varginha",
+      "nome": "Varginha",
       "estado": "MG",
       "ibge": "12412"
     },
     {
       "id": 7,
-      "cidade": "Boa Esperança",
+      "nome": "Boa Esperança",
       "estado": "MG",
       "ibge": "12412"
     },
     {
       "id": 14,
-      "cidade": "Três Pontas",
+      "nome": "Três Pontas",
       "estado": "MG",
       "ibge": "214214"
     },
     {
       "id": 15,
-      "cidade": "Belo Horizonte",
+      "nome": "Belo Horizonte",
       "estado": "MG",
       "ibge": "214214"
     },
     {
       "id": 16,
-      "cidade": "Três Pontas1",
+      "nome": "Três Pontas1",
       "estado": "MG",
       "ibge": "214214"
     },
     {
       "id": 17,
-      "cidade": "Três Pontas2",
+      "nome": "Três Pontas2",
       "estado": "MG",
       "ibge": "214214"
     },
     {
       "id": 18,
-      "cidade": "Três Pontas3",
+      "nome": "Três Pontas3",
       "estado": "MG",
       "ibge": "214214"
     },
     {
       "id": 19,
-      "cidade": "Três Pontas4",
+      "nome": "Três Pontas4",
       "estado": "MG",
       "ibge": "214214"
     },
     {
         "id": 112,
-        "cidade": "Três Pontas5",
+        "nome": "Três Pontas5",
         "estado": "MG",
         "ibge": "214214"
       },
       {
         "id": 191,
-        "cidade": "Campo Belo",
+        "nome": "Campo Belo",
         "estado": "MG",
         "ibge": "214214"
       },
       {
         "id": 1129,
-        "cidade": "Três Pontas",
+        "nome": "Três Pontas",
         "estado": "MG",
         "ibge": "214214"
       },
       {
         "id": 19,
-        "cidade": "Três Pontas",
+        "nome": "Três Pontas",
         "estado": "MG",
         "ibge": "214214"
       }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Cliente } from '../models/Cliente';
 import { CrudService } from '../../shared/services/CRUD-service';
 import { environment } from '../../environment/environment';
+import { removerAcentos } from '../../shared/services/remover-acentuos';
 
 @Injectable({
     providedIn: 'root',
@@ -14,12 +15,6 @@ export class ClienteService extends CrudService<Cliente>
     constructor(protected override _http: HttpClient)
     {
         super(_http, `${environment.API}clientes`)
-    }
-
-    protected override ordenarRegistro(cliente: Cliente[], pesquisa: string): Cliente[]
-    {
-
-        return cliente.filter(cliente => cliente.nome.includes(pesquisa)).sort()
     }
 
     enviarArquivo(arquivos: Set<File>)

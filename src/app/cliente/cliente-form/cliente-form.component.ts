@@ -161,7 +161,7 @@ export class ClienteFormComponent extends BaseFormComponent implements OnInit, O
         }
         else 
         {
-            this.inputCidade.nativeElement.value = cidade.cidade;
+            this.inputCidade.nativeElement.value = cidade.nome;
             this.inputEstado.nativeElement.value = cidade.estado;
         }
     }
