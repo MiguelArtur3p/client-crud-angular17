@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { debounce, Subject } from 'rxjs';
 
 import { Cidade } from '../models/Cidade';
 import { CidadeService } from '../services/cidade.service';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { CidadeFormModalComponent } from '../modals/cidade-form-modal/cidade-form-modal.component';
+import { DebounceService } from '../../shared/services/debounce.service';
 
 @Component({
     selector: 'cidade-list',
@@ -27,7 +28,8 @@ export class CidadeListComponent implements OnInit
         private _router: Router,
         private _cidadeService: CidadeService,
         public _modalService: ModalService,
-        private _tratarErrosService: TratarErrosService
+        private _tratarErrosService: TratarErrosService,
+        private _debounceService: DebounceService
     )
     {
 
@@ -46,15 +48,22 @@ export class CidadeListComponent implements OnInit
 
     pesquisar(event: Event)
     {
-        this.limparPesquisa()
-        let pesquisa: string = (event.target as HTMLInputElement).value;
 
-        if (!pesquisa) return;
-        this.carregandoDados = true;
-        this._cidadeService.obterRegistroPorNome(pesquisa)?.subscribe({
-            next: cidades => this.tratarSucesso(cidades, pesquisa),
-            error: error => this._tratarErrosService.tratarErros(error),
-        })
+        const executarPesquisa = () =>
+        {
+            console.log('asdjasjd')
+            this.limparPesquisa()
+            let pesquisa: string = (event.target as HTMLInputElement).value;
+
+            if (!pesquisa) return;
+            this.carregandoDados = true;
+            this._cidadeService.obterRegistroPorNome(pesquisa)?.subscribe({
+                next: cidades => this.tratarSucesso(cidades, pesquisa),
+                error: error => this._tratarErrosService.tratarErros(error),
+            })
+        }
+        let executarDebounce = this._debounceService.debounce(executarPesquisa, 200);
+        executarDebounce()
     }
 
     tratarSucesso(cidades: Cidade[], pesquisa: string)

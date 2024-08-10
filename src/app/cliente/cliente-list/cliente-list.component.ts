@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Cliente } from '../models/Cliente';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { ClienteService } from '../services/cliente.service';
+import { DebounceService } from '../../shared/services/debounce.service';
 
 @Component({
     selector: 'app-cliente-list',
@@ -16,20 +17,23 @@ export class ClienteListComponent
     carregandoDados: boolean = false;
     unsubscribe$ = new Subject();
 
-
-    constructor(private _clienteService: ClienteService, private _tratarErrosService: TratarErrosService) { }
+    constructor(private _clienteService: ClienteService, private _tratarErrosService: TratarErrosService, private _debounceService: DebounceService) { }
 
     pesquisar(event: Event)
     {
-        this.limparPesquisa();
-
-        let pesquisa = (event.target as HTMLInputElement).value;
-        if (!pesquisa) return;
-        this.carregandoDados = true;
-        this._clienteService.obterRegistroPorNome(pesquisa)?.subscribe({
-            next: clientes => this.tratarSucesso(clientes, pesquisa),
-            error: error => this._tratarErrosService.tratarErros(error),
-        })
+        let executarPesquisa = () =>
+        {
+            this.limparPesquisa();
+            let pesquisa = (event.target as HTMLInputElement).value;
+            if (!pesquisa) return;
+            this.carregandoDados = true;
+            this._clienteService.obterRegistroPorNome(pesquisa)?.subscribe({
+                next: clientes => this.tratarSucesso(clientes, pesquisa),
+                error: error => this._tratarErrosService.tratarErros(error),
+            })
+        }
+        let executarDebounce = this._debounceService.debounce(executarPesquisa, 200);
+        executarDebounce();
     }
 
     tratarSucesso(clientes: Cliente[], pesquisa: string)
