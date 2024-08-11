@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { ClienteRoutingModule } from './cliente.routing.module';
 import { CampoControlInvalidModule } from '../shared/components/ContenteCampoInvalid/campo-control-invalid.module';
@@ -19,7 +20,9 @@ import { ClienteListComponent } from './cliente-list/cliente-list.component';
         ClienteRoutingModule,
         CampoControlInvalidModule,
         CidadeModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        PaginationModule.forRoot()
+
     ],
     exports: [ClienteFormComponent, ClienteListComponent],
 

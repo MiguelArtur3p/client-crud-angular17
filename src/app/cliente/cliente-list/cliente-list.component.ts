@@ -5,6 +5,7 @@ import { Cliente } from '../models/Cliente';
 import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { ClienteService } from '../services/cliente.service';
 import { DebounceService } from '../../shared/services/debounce.service';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'app-cliente-list',
@@ -13,7 +14,8 @@ import { DebounceService } from '../../shared/services/debounce.service';
 })
 export class ClienteListComponent
 {
-    clientes?: Cliente[] = [];
+    clientes: Cliente[] = [];
+    clientePaginado: Cliente[] = [];
     carregandoDados: boolean = false;
     unsubscribe$ = new Subject();
 
@@ -39,12 +41,23 @@ export class ClienteListComponent
     tratarSucesso(clientes: Cliente[], pesquisa: string)
     {
         this.carregandoDados = false;
-        this.clientes = this._clienteService.filtrarRegistroPorNome(clientes, pesquisa)
+        this.clientes = this._clienteService.filtrarRegistroPorNome(clientes, pesquisa);
+        this.clientePaginado = this.clientes.slice(0, 10);
+
     }
 
     limparPesquisa()
     {
-        this.clientes = undefined;
+        this.clientes = [];
+        this.clientePaginado = [];
     }
+
+    pageChanged(event: PageChangedEvent): void
+    {
+        const startItem = (event.page - 1) * event.itemsPerPage;
+        const endItem = event.page * event.itemsPerPage;
+        this.clientePaginado = this.clientes.slice(startItem, endItem);
+    }
+
 
 }
