@@ -35,8 +35,7 @@
       ],
       "numeroCelular": "35998445408",
       "email": "miguel.3tp@hotmail.com"
-    }
-    ,
+    },
     {
       "id": 212,
       "nome": "Miguel Artur Corrêa",
@@ -54,8 +53,7 @@
       ],
       "numeroCelular": "35998445408",
       "email": "miguel.3tp@hotmail.com"
-    }
-    ,
+    },
     {
       "id": 233,
       "nome": "Miguel Artur Corrêa",
@@ -73,8 +71,7 @@
       ],
       "numeroCelular": "35998445408",
       "email": "miguel.3tp@hotmail.com"
-    }
-    ,
+    },
     {
       "id": 121632,
       "nome": "Miguel Artur Corrêa",
@@ -92,8 +89,7 @@
       ],
       "numeroCelular": "35998445408",
       "email": "miguel.3tp@hotmail.com"
-    }
-    ,
+    },
     {
       "id": 1251532,
       "nome": "Miguel Artur Corrêa",
@@ -235,29 +231,59 @@
       "ibge": "214214"
     },
     {
-        "id": 112,
-        "nome": "Três Pontas5",
-        "estado": "MG",
-        "ibge": "214214"
-      },
-      {
-        "id": 191,
-        "nome": "Campo Belo",
-        "estado": "MG",
-        "ibge": "214214"
-      },
-      {
-        "id": 1129,
-        "nome": "Três Pontas",
-        "estado": "MG",
-        "ibge": "214214"
-      },
-      {
-        "id": 19,
-        "nome": "Três Pontas",
-        "estado": "MG",
-        "ibge": "214214"
-      }
+      "id": 112,
+      "nome": "Três Pontas5",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 191,
+      "nome": "Campo Belo",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 1129,
+      "nome": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 19,
+      "nome": "Três Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 1130,
+      "nome": "Tres Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 1131,
+      "nome": "Tres Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    },
+    {
+      "id": 1132,
+      "nome": "Miguel",
+      "estado": "SP",
+      "ibge": "Tres Pontas"
+    },
+    {
+      "id": 1133,
+      "nome": "Tres Pontas",
+      "estado": "MG",
+      "ibge": "Tres Pontas"
+    },
+    {
+      "id": 1134,
+      "nome": "Tres Pontas",
+      "estado": "MG",
+      "ibge": "214214"
+    }
   ],
   "usuario": [
     {

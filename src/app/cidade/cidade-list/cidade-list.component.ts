@@ -8,6 +8,7 @@ import { TratarErrosService } from '../../shared/services/tratar-erros.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { CidadeFormModalComponent } from '../modals/cidade-form-modal/cidade-form-modal.component';
 import { DebounceService } from '../../shared/services/debounce.service';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'cidade-list',
@@ -16,7 +17,8 @@ import { DebounceService } from '../../shared/services/debounce.service';
 })
 export class CidadeListComponent implements OnInit
 {
-    cidades?: Cidade[] = [];
+    cidades: Cidade[] = [];
+    cidadePaginada: Cidade[] = [];
     modalEstaAberta: boolean = false;
     desativarOperacoes: boolean = false;
     unsubscribe$ = new Subject();
@@ -51,11 +53,11 @@ export class CidadeListComponent implements OnInit
 
         const executarPesquisa = () =>
         {
-            console.log('asdjasjd')
             this.limparPesquisa()
             let pesquisa: string = (event.target as HTMLInputElement).value;
 
             if (!pesquisa) return;
+
             this.carregandoDados = true;
             this._cidadeService.obterRegistroPorNome(pesquisa)?.subscribe({
                 next: cidades => this.tratarSucesso(cidades, pesquisa),
@@ -70,11 +72,14 @@ export class CidadeListComponent implements OnInit
     {
         this.carregandoDados = false;
         this.cidades = this._cidadeService.filtrarRegistroPorNome(cidades, pesquisa)
+        this.cidadePaginada = this.cidades!.slice(0, 10);
+
     }
 
     limparPesquisa()
     {
-        this.cidades = undefined
+        this.cidades = []
+        this.cidadePaginada = [];
     }
 
     redirecionarParaOperacao(operacao?: string, id?: string)
@@ -93,6 +98,13 @@ export class CidadeListComponent implements OnInit
 
         if (!id || this.desativarOperacoes) return;
         this._cidadeService.definirIdCidadeSelecionada(String(id))
+    }
+
+    pageChanged(event: PageChangedEvent): void
+    {
+        const startItem = (event.page - 1) * event.itemsPerPage;
+        const endItem = event.page * event.itemsPerPage;
+        this.cidadePaginada = this.cidades!.slice(startItem, endItem);
     }
 
     ngOnInit()

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { CidadeRoutingModule } from './cidade.routing.module';
 import { CampoControlInvalidModule } from '../shared/components/ContenteCampoInvalid/campo-control-invalid.module';
@@ -21,7 +22,9 @@ import { CidadeFormModalComponent } from './modals/cidade-form-modal/cidade-form
         CidadeRoutingModule,
         CampoControlInvalidModule,
         HttpClientModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        PaginationModule.forRoot()
+
     ],
     exports: [CidadeListComponent, CidadeFormComponent, CidadeListModalComponent, CidadeFormModalComponent],
 })

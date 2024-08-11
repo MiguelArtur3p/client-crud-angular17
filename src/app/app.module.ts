@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -24,6 +25,7 @@ import { MenuLateralComponent } from './default-layout/menu-lateral/menu-lateral
         HttpClientModule,
         SharedModule,
         ModalModule.forRoot(),
+        PaginationModule.forRoot()
     ],
     exports: [],
     providers: [BsModalService],
